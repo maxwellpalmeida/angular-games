@@ -1,0 +1,75 @@
+
+  .square {
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* background: #fff; */
+    border: 1px solid #999;
+    float: left;
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 60px;
+    height: 60px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 60px;
+  }
+
+  .closed {
+    /*background-image: url('src\assets\img\mine-field\closed-square.png');*/
+    background-image: url('src\assets\img\mine-field\closed-square.svg');
+  }
+
+  .empty-square {
+    background-image: url('src\assets\img\mine-field\empty-square.svg');
+  }
+
+  .one-bomb {
+    background-image: url('src\assets\img\mine-field\one-bomb.svg');
+  }
+
+  .two-bombs {
+    background-image: url('src\assets\img\mine-field\two-bombs.svg');
+  }
+  
+  .three-bombs {
+    background-image: url('src\assets\img\mine-field\three-bombs.svg');
+  }
+  
+  .four-bombs {
+    background-image: url('src\assets\img\mine-field\four-bombs.svg');
+  }
+
+  .five-bombs {
+    background-image: url('src\assets\img\mine-field\five-bombs.svg');
+  }
+
+  .six-bombs {
+    background-image: url('src\assets\img\mine-field\six-bombs.svg');
+  }
+
+  .seven-bombs {
+    background-image: url('src\assets\img\mine-field\seven-bombs.svg');
+  }
+
+  .eight-bombs {
+    background-image: url('src\assets\img\mine-field\eight-bombs.svg');
+  }
+
+  .hit-bomb {
+    background-image: url('src\assets\img\mine-field\hit-bomb.png');
+  }
+
+  .exposed-bomb {
+    background-image: url('src\assets\img\mine-field\exposed-bomb.png');
+  }
+
+  .square:focus {
+    outline: none;
+  }
+  
+  .kbd-navigation .square:focus {
+    background: #ddd;
+  }
+  

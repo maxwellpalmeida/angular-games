@@ -1,0 +1,18 @@
+<div>
+    <div className="status">{{status}}</div>
+    <div className="board-row">
+        <app-square [value]="squares[0]" (clicked)="onGameMove(0)" ></app-square>
+        <app-square [value]="squares[1]" (clicked)="onGameMove(1)" ></app-square>
+        <app-square [value]="squares[2]" (clicked)="onGameMove(2)" ></app-square>
+    </div>
+    <div className="board-rowsquares">
+        <app-square [value]="squares[3]" (clicked)="onGameMove(3)" ></app-square>
+        <app-square [value]="squares[4]" (clicked)="onGameMove(4)" ></app-square>
+        <app-square [value]="squares[5]" (clicked)="onGameMove(5)" ></app-square>
+    </div>
+    <div className="board-rowsquares">
+        <app-square [value]="squares[6]" (clicked)="onGameMove(6)" ></app-square>
+        <app-square [value]="squares[7]" (clicked)="onGameMove(7)" ></app-square>
+        <app-square [value]="squares[8]" (clicked)="onGameMove(8)" ></app-square>
+    </div>
+  </div>
