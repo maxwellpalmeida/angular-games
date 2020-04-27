@@ -35,8 +35,13 @@ export class BoardService {
     return this.squares;
   }
 
-  private fillSquareCounts() {
-    debugger;
+  // public getSurroundingSquares() : Array<Square>
+  // {
+  //   throw new NotImplementedException
+
+  // }
+
+  public fillSquareCounts() {
       for(var rowIndex = 0; rowIndex < this.GameSettings.rowsSize; rowIndex++) {
         for(var columnIndex = 0; columnIndex < this.GameSettings.columnsSize; columnIndex++) {
           if(this.squares[rowIndex][columnIndex].IsBomb == false) {
@@ -45,17 +50,17 @@ export class BoardService {
             
             SurroundingBombs += this.ReturnBombCount(rowIndex, columnIndex);
             //Next Row
-            if (rowIndex < this.GameSettings.rowsSize - 1)
+            if (typeof this.squares[rowIndex + 1] !== 'undefined')
             {
-              SurroundingBombs += this.squares[rowIndex + 1][columnIndex].IsBomb == true ? 1 : 0;
+              SurroundingBombs += this.squares[rowIndex + 1][columnIndex].IsBomb ? 1 : 0;
               SurroundingBombs += this.ReturnBombCount(rowIndex + 1, columnIndex);
             }
             //Next Row
             
             //Previous row points
-            if (rowIndex > 0)
+            if (typeof this.squares[rowIndex - 1] !== 'undefined')
             {
-              SurroundingBombs += this.squares[rowIndex - 1][columnIndex].IsBomb == true ? 1 : 0;
+              SurroundingBombs += this.squares[rowIndex - 1][columnIndex].IsBomb ? 1 : 0;
               SurroundingBombs += this.ReturnBombCount(rowIndex - 1, columnIndex);
             }
 
@@ -68,14 +73,14 @@ export class BoardService {
 
   private ReturnBombCount(rowIndex, columnIndex){
     var BombsCount = 0;
-    if (columnIndex < this.GameSettings.columnsSize - 1)
+    if (typeof this.squares[rowIndex][columnIndex + 1] !== 'undefined')
     {
       if (this.squares[rowIndex][columnIndex + 1].IsBomb) {
         BombsCount++;
       }
     }
 
-    if (columnIndex > 0 && columnIndex <= this.GameSettings.columnsSize - 1)
+    if (typeof this.squares[rowIndex][columnIndex - 1] !== 'undefined')
     {
       if (this.squares[rowIndex][columnIndex - 1].IsBomb) {
         BombsCount++;
@@ -102,8 +107,11 @@ export class BoardService {
     switch (level)
     {
       case GameLevel.easy:
-        settings.columnsSize = 12;
-        settings.rowsSize = 12;
+        // settings.columnsSize = 12;
+        // settings.rowsSize = 12;
+        // settings.percentageOfBombs = 30;
+        settings.columnsSize = 11;
+        settings.rowsSize = 11;
         settings.percentageOfBombs = 30;
         break;
 
