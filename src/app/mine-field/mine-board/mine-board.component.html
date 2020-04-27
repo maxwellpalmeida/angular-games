@@ -1,11 +1,12 @@
 <div>
     <div className="status">{{status}}</div>
-    <div class="board-row" *ngFor="let row of squares | keyvalue">
+    <div class="board-row" *ngFor="let row of squares | keyvalue : asIsOrder">
         <app-square-mine-field
-            *ngFor="let column of row.value | keyvalue"
+            *ngFor="let column of row.value | keyvalue : asIsOrder"
             [value]="squares[row.key][column.key].Display" 
             [customClass]="squares[row.key][column.key].CustomClass"
             (click)="handleClick(row.key, column.key)">
         </app-square-mine-field>
     </div>
+    <button (click)="runfillcounts()">test</button>
 </div>

@@ -20,6 +20,10 @@ export class MineBoardComponent implements OnInit {
     this.squares = this.boardService.generateBoard(GameLevel.easy);
   }
 
+  public runfillcounts(){
+    this.boardService.fillSquareCounts();
+  }
+
   public handleClick(rowIndex, columnIndex) {
     var val = this.squares[rowIndex][columnIndex];
     val.IsVisible = true;
@@ -35,6 +39,10 @@ export class MineBoardComponent implements OnInit {
       this.IsGameFinished = true;
       this.status = "Congrats pal. You won!"; 
     }
+  }
+
+  public asIsOrder(a, b) {
+    return 1;
   }
 
   private exposeAllBombs() {
