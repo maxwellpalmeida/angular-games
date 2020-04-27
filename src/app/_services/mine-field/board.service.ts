@@ -77,6 +77,7 @@ export class BoardService {
     var SurroundingSquares : Array<Square> = new Array<Square>();
 
     SurroundingSquares = SurroundingSquares.concat(this.getRowSurroundingSquares(rowIndex - 1, columnIndex));
+    SurroundingSquares = SurroundingSquares.concat(this.getRowSurroundingSquares(rowIndex, columnIndex));
     SurroundingSquares = SurroundingSquares.concat(this.getRowSurroundingSquares(rowIndex + 1, columnIndex));
     
     return SurroundingSquares;
@@ -110,11 +111,8 @@ export class BoardService {
     switch (level)
     {
       case GameLevel.easy:
-        // settings.columnsSize = 12;
-        // settings.rowsSize = 12;
-        // settings.percentageOfBombs = 30;
-        settings.columnsSize = 11;
-        settings.rowsSize = 11;
+        settings.columnsSize = 12;
+        settings.rowsSize = 12;
         settings.percentageOfBombs = 30;
         break;
 

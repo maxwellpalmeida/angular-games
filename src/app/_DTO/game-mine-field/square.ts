@@ -5,9 +5,9 @@ export class Square {
     SurroundingBombs: number;
 
     get Display(): string {
-        // if (!this.IsVisible) {
-        //     return "";
-        // }
+        if (!this.IsVisible) {
+            return "";
+        }
 
         if (this.IsBomb) {
             return "*";
@@ -19,9 +19,9 @@ export class Square {
     get CustomClass(): string[] {
         var defaultClasses = ['square', 'button'];
 
-        // if (this.IsVisible == false) {
-        //     return defaultClasses.concat('closed');
-        // }
+        if (this.IsVisible == false) {
+            return defaultClasses.concat('closed');
+        }
 
         if (this.IsBomb) {
             if(this.WasClicked) { 
