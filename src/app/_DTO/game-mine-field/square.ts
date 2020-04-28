@@ -1,13 +1,14 @@
 export class Square {
     IsBomb: boolean;
+    IsFlagged: boolean = false;
     IsVisible: boolean = false;
     WasClicked: boolean = false;
     SurroundingBombs: number;
 
     get Display(): string {
-        // if (!this.IsVisible) {
-        //     return "";
-        // }
+        if (!this.IsVisible) {
+            return "";
+        }
 
         if (this.IsBomb) {
             return "*";
@@ -19,9 +20,13 @@ export class Square {
     get CustomClass(): string[] {
         var defaultClasses = ['square', 'button'];
 
-        // if (this.IsVisible == false) {
-        //     return defaultClasses.concat('closed');
-        // }
+        if (this.IsFlagged) {
+            return defaultClasses.concat('flagged');  
+        }
+
+        if (this.IsVisible == false) {
+            return defaultClasses.concat('closed');
+        }
 
         if (this.IsBomb) {
             if(this.WasClicked) { 
