@@ -65,6 +65,10 @@
     background-image: url('src\assets\img\mine-field\squares\exposed-bomb.png');
   }
 
+  .flagged {
+    background-image: url('src\assets\img\mine-field\squares\flag.svg');
+  }
+
   .square:focus {
     outline: none;
   }

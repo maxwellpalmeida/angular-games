@@ -24,12 +24,28 @@ export class MineBoardComponent implements OnInit {
     this.boardService.fillSquareCounts();
   }
 
-  public handleClick(rowIndex, columnIndex) {
-    var val = this.squares[rowIndex][columnIndex];
-    val.IsVisible = true;
-    val.WasClicked = true;
+  public ToggleFlag(event: Event, rowIndex: number, columnIndex: number) {
+    event.preventDefault();
+    
+    var square : Square = this.squares[rowIndex][columnIndex];
+    if (square.IsVisible) {
+      return;
+    }
 
-    if (val.IsBomb == true) {
+    square.IsFlagged = !square.IsFlagged;
+  }
+
+  public handleClick(rowIndex: number, columnIndex: number) {
+    var square : Square = this.squares[rowIndex][columnIndex];
+
+    if (square.IsFlagged) {
+      return;
+    }
+
+    square.IsVisible = true;
+    square.WasClicked = true;
+
+    if (square.IsBomb == true) {
       debugger;
        this.status = "You hit a bomb. You lost, looser."; 
        this.exposeAllBombs();
@@ -70,6 +86,4 @@ export class MineBoardComponent implements OnInit {
 
     return AreAllBlocksOpened;
   }
-
- 
 }

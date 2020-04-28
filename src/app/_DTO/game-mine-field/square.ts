@@ -1,5 +1,6 @@
 export class Square {
     IsBomb: boolean;
+    IsFlagged: boolean = false;
     IsVisible: boolean = false;
     WasClicked: boolean = false;
     SurroundingBombs: number;
@@ -18,6 +19,10 @@ export class Square {
 
     get CustomClass(): string[] {
         var defaultClasses = ['square', 'button'];
+
+        if (this.IsFlagged) {
+            return defaultClasses.concat('flagged');  
+        }
 
         if (this.IsVisible == false) {
             return defaultClasses.concat('closed');

@@ -2,6 +2,7 @@
     <div className="status">{{status}}</div>
     <div class="board-row" *ngFor="let row of squares | keyvalue : asIsOrder">
         <app-square-mine-field
+            (contextmenu)="ToggleFlag($event, row.key, column.key)"
             *ngFor="let column of row.value | keyvalue : asIsOrder"
             [value]="squares[row.key][column.key].Display" 
             [customClass]="squares[row.key][column.key].CustomClass"
