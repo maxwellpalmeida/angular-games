@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameLevel } from 'src/app/_DTO/game-mine-field/game-level';
 import { Square } from 'src/app/_DTO/game-mine-field/square';
 import { GameSettings } from 'src/app/_DTO/game-mine-field/game-settings';
+import { _ }  from "lodash";
 
 @Injectable({
   providedIn: 'root'
@@ -35,66 +36,69 @@ export class BoardService {
     return this.squares;
   }
 
-  // public getSurroundingSquares() : Array<Square>
-  // {
-  //   throw new NotImplementedException
-
-  // }
-
   public fillSquareCounts() {
       for(var rowIndex = 0; rowIndex < this.GameSettings.rowsSize; rowIndex++) {
         for(var columnIndex = 0; columnIndex < this.GameSettings.columnsSize; columnIndex++) {
           if(this.squares[rowIndex][columnIndex].IsBomb == false) {
-          
-            var SurroundingBombs = 0;
-            
-            SurroundingBombs += this.ReturnBombCount(rowIndex, columnIndex);
-            //Next Row
-            if (typeof this.squares[rowIndex + 1] !== 'undefined')
-            {
-              SurroundingBombs += this.squares[rowIndex + 1][columnIndex].IsBomb ? 1 : 0;
-              SurroundingBombs += this.ReturnBombCount(rowIndex + 1, columnIndex);
-            }
-            //Next Row
-            
-            //Previous row points
-            if (typeof this.squares[rowIndex - 1] !== 'undefined')
-            {
-              SurroundingBombs += this.squares[rowIndex - 1][columnIndex].IsBomb ? 1 : 0;
-              SurroundingBombs += this.ReturnBombCount(rowIndex - 1, columnIndex);
-            }
 
-            //Previous row points
+            var SurroundingSquares : Array<Square> = this.getSurroundingSquares(rowIndex, columnIndex);
+            var SurroundingBombs : number = 0;
+
+            SurroundingSquares.forEach(square => {
+              if(square.IsBomb) {
+                SurroundingBombs++;
+              }
+            });
+            
             this.squares[rowIndex][columnIndex].SurroundingBombs = SurroundingBombs;
           }
         }
     }
   }
 
-  private ReturnBombCount(rowIndex, columnIndex){
-    var BombsCount = 0;
-    if (typeof this.squares[rowIndex][columnIndex + 1] !== 'undefined')
-    {
-      if (this.squares[rowIndex][columnIndex + 1].IsBomb) {
-        BombsCount++;
+  
+  private getRowSurroundingSquares(rowIndex : number, columnIndex : number) : Array<Square> {
+    var SurroundingSquares : Array<Square> = new Array<Square>();
+    
+    if(this.DoesPositionExist(rowIndex, columnIndex)) {
+      SurroundingSquares.push(this.squares[rowIndex][columnIndex]);
+    }
+    if (this.DoesPositionExist(rowIndex, columnIndex + 1)) {
+      SurroundingSquares.push(this.squares[rowIndex][columnIndex + 1]);
+    }
+    if (this.DoesPositionExist(rowIndex, columnIndex - 1)) {
+      SurroundingSquares.push(this.squares[rowIndex][columnIndex - 1]);
+    }
+
+    return SurroundingSquares;
+  }
+
+  private getSurroundingSquares(rowIndex : number, columnIndex : number) : Array<Square> {
+    var SurroundingSquares : Array<Square> = new Array<Square>();
+
+    SurroundingSquares = SurroundingSquares.concat(this.getRowSurroundingSquares(rowIndex - 1, columnIndex));
+    SurroundingSquares = SurroundingSquares.concat(this.getRowSurroundingSquares(rowIndex, columnIndex));
+    SurroundingSquares = SurroundingSquares.concat(this.getRowSurroundingSquares(rowIndex + 1, columnIndex));
+    
+    return SurroundingSquares;
+  }
+
+
+  private DoesPositionExist(rowIndex : number, columnIndex? : number) : boolean {
+    if(columnIndex) {
+      if (typeof this.squares[rowIndex] !== 'undefined') {
+        return (typeof this.squares[rowIndex][columnIndex] !== 'undefined');
       }
     }
 
-    if (typeof this.squares[rowIndex][columnIndex - 1] !== 'undefined')
-    {
-      if (this.squares[rowIndex][columnIndex - 1].IsBomb) {
-        BombsCount++;
-      }
-    }
-    return BombsCount;
+    return (typeof this.squares[rowIndex] !== 'undefined');
   }
 
   private shouldBeBomb() : boolean {
-    var ramdonNumber = this.generateRandomNumber(100); // 30 percent of the squares are supposed to be a bomb
-    return (ramdonNumber < this.GameSettings.percentageOfBombs);
+    return (this.generateRandomNumber(100) < this.GameSettings.percentageOfBombs);
   }
 
-  private generateRandomNumber(max_value: number) {
+  private generateRandomNumber(max_value: number): number {
     return Math.floor(Math.random() * max_value); 
   }
 
@@ -107,11 +111,8 @@ export class BoardService {
     switch (level)
     {
       case GameLevel.easy:
-        // settings.columnsSize = 12;
-        // settings.rowsSize = 12;
-        // settings.percentageOfBombs = 30;
-        settings.columnsSize = 11;
-        settings.rowsSize = 11;
+        settings.columnsSize = 12;
+        settings.rowsSize = 12;
         settings.percentageOfBombs = 30;
         break;
 
